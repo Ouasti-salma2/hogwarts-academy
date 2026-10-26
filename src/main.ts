@@ -184,6 +184,29 @@ handleSpellCast({
   spellName: "Expelliarmus",
 });
 
+// ===== Exercice 4 : valider la puissance d'un sort =====
+console.log("\n--- Exercice 4 : ValidateSpellPower ---");
+
+spells.add({
+  id: 104,
+  name: "Protego Maxima",
+  category: "defense",
+  power: 50,
+});
+
+try {
+  spells.add({
+    id: 103,
+    name: "Invalid Spell",
+    category: "attack",
+    power: -10,
+  });
+} catch (error) {
+  console.log("Erreur attendue :", (error as Error).message);
+}
+
+console.log("Nombre de sorts :", spells.getAll().length);
+
 // Compile-time demonstrations: these aliases are checked by TypeScript.
 type CastArguments = Parameters<AcademyService["castSpell"]>;
 type CastResult = ReturnType<AcademyService["castSpell"]>;
