@@ -2,6 +2,7 @@ import {
   type Wizard,
   type Spell,
   type AcademyEvent,
+  type SpellCastEvent,
   type House,
   type HousePoints,
   type SpellCategory,
@@ -71,10 +72,9 @@ class AcademyService {
     return this.wizards.update(id, changes);
   }
 
-  getSpellEvents(events: AcademyEvent[]): Extract<AcademyEvent, { type: "spell-cast" }>[] {
+  getSpellEvents(events: AcademyEvent[]): SpellCastEvent[] {
     return events.filter(
-      (event): event is Extract<AcademyEvent, { type: "spell-cast" }> =>
-        event.type === "spell-cast"
+      (event): event is SpellCastEvent => event.type === "spell-cast"
     );
   }
 }
@@ -170,6 +170,19 @@ console.log(neville);
 console.log("\n--- Exercice 2 : findByHouse ---");
 console.log(wizards.findByHouse("Gryffindor"));
 console.log(wizards.findByHouse("Slytherin"));
+
+// ===== Exercice 3 : Extract pour les evenements de sort =====
+console.log("\n--- Exercice 3 : handleSpellCast ---");
+
+function handleSpellCast(event: SpellCastEvent): void {
+  console.log(`Wizard ${event.wizardId} cast ${event.spellName}`);
+}
+
+handleSpellCast({
+  type: "spell-cast",
+  wizardId: 1,
+  spellName: "Expelliarmus",
+});
 
 // Compile-time demonstrations: these aliases are checked by TypeScript.
 type CastArguments = Parameters<AcademyService["castSpell"]>;
