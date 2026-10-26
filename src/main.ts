@@ -166,6 +166,11 @@ const neville = wizards.create({
 });
 console.log(neville);
 
+// ===== Exercice 2 : filtrer par maison =====
+console.log("\n--- Exercice 2 : findByHouse ---");
+console.log(wizards.findByHouse("Gryffindor"));
+console.log(wizards.findByHouse("Slytherin"));
+
 // Compile-time demonstrations: these aliases are checked by TypeScript.
 type CastArguments = Parameters<AcademyService["castSpell"]>;
 type CastResult = ReturnType<AcademyService["castSpell"]>;

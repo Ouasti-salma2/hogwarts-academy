@@ -37,6 +37,10 @@ export class WizardRepository extends Repository<Wizard> {
     this.add(wizard);
     return wizard;
   }
+
+  findByHouse(house: Wizard["house"]): Wizard[] {
+    return this.getAll().filter(wizard => wizard.house === house);
+  }
 }
 
 export class SpellRepository extends Repository<Spell> {}
