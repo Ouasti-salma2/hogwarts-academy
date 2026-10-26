@@ -15,7 +15,7 @@ import {
 } from "./types";
 
 import { WizardRepository, SpellRepository } from "./repository";
-import { Log } from "./decorators";
+import { Log, Cache } from "./decorators";
 
 function isHouse(value: unknown): value is House {
   return (
@@ -206,6 +206,23 @@ try {
 }
 
 console.log("Nombre de sorts :", spells.getAll().length);
+
+// ===== Exercice 5 : decorateur Cache =====
+console.log("\n--- Exercice 5 : Cache ---");
+
+class SpellCalculator {
+  @Cache
+  calculatePower(basePower: number, multiplier: number): number {
+    console.log("Calculating...");
+    return basePower * multiplier;
+  }
+}
+
+const calculator = new SpellCalculator();
+
+console.log(calculator.calculatePower(10, 3));
+console.log(calculator.calculatePower(10, 3));
+console.log(calculator.calculatePower(5, 2));
 
 // Compile-time demonstrations: these aliases are checked by TypeScript.
 type CastArguments = Parameters<AcademyService["castSpell"]>;
