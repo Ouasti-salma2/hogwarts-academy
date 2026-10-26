@@ -156,6 +156,16 @@ const events: AcademyEvent[] = [
 ];
 console.log(academy.getSpellEvents(events));
 
+// ===== Exercice 1 : ajouter un sorcier sans id =====
+console.log("\n--- Exercice 1 : create ---");
+const neville = wizards.create({
+  name: "Neville Londubat",
+  house: "Gryffindor",
+  level: 3,
+  active: true,
+});
+console.log(neville);
+
 // Compile-time demonstrations: these aliases are checked by TypeScript.
 type CastArguments = Parameters<AcademyService["castSpell"]>;
 type CastResult = ReturnType<AcademyService["castSpell"]>;
