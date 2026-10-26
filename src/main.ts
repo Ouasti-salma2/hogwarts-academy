@@ -1,28 +1,35 @@
-import {
-  type Wizard,
-  type Spell,
-  type AcademyEvent,
-  type SpellCastEvent,
-  type House,
-  type HousePoints,
-  type SpellCategory,
-  type SpellOutput,
-  type ArrayElement,
-  type WizardSummary,
-  type WizardUpdate,
-  type AttackSpell,
-  type NonHealingCategory,
+import type {
+  Wizard,
+  Spell,
+  AcademyEvent,
+  SpellCastEvent,
+  House,
+  HousePoints,
+  SpellCategory,
+  SpellOutput,
+  ArrayElement,
+  WizardSummary,
+  WizardUpdate,
+  AttackSpell,
+  NonHealingCategory,
 } from "./types";
 
 import { WizardRepository, SpellRepository } from "./repository";
 import { Log, Cache } from "./decorators";
 
+// Exercice 6 : liste des 4 maisons valides de Poudlard.
+const validHouses: readonly House[] = [
+  "Gryffindor",
+  "Slytherin",
+  "Ravenclaw",
+  "Hufflepuff"
+];
+
+// Exercice 6 : type guard dedie aux maisons.
 function isHouse(value: unknown): value is House {
   return (
-    value === "Gryffindor" ||
-    value === "Slytherin" ||
-    value === "Ravenclaw" ||
-    value === "Hufflepuff"
+    typeof value === "string" &&
+    validHouses.some(house => house === value)
   );
 }
 
@@ -223,6 +230,28 @@ const calculator = new SpellCalculator();
 console.log(calculator.calculatePower(10, 3));
 console.log(calculator.calculatePower(10, 3));
 console.log(calculator.calculatePower(5, 2));
+
+// ===== Exercice 6 : type guard strict =====
+console.log("\n--- Exercice 6 : isWizard strict ---");
+
+const validData: unknown = {
+  id: 1,
+  name: "Harry Potter",
+  house: "Gryffindor",
+  level: 5,
+  active: true
+};
+
+const invalidData: unknown = {
+  id: 2,
+  name: "Viktor",
+  house: "Durmstrang",
+  level: 5,
+  active: true
+};
+
+console.log(isWizard(validData));   // true
+console.log(isWizard(invalidData)); // false
 
 // Compile-time demonstrations: these aliases are checked by TypeScript.
 type CastArguments = Parameters<AcademyService["castSpell"]>;
